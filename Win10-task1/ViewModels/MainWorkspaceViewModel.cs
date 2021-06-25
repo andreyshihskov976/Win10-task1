@@ -1,9 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Win10_task1.Models;
 using Win10_task1.Services.DataServices;
+using Win10_task1.ViewModels.Commands;
 
 namespace Win10_task1.ViewModels
 {
@@ -25,19 +28,40 @@ namespace Win10_task1.ViewModels
         public MainWorkspaceViewModel(User user)
         {
             _loggedInUser = user;
+            _userName = $"{user.LastName} {user.FirstName} {user.SurName}";
             _processRepository = new ProcessService();
             _subTaskRepository = new SubTaskService();
             this.PropertyChanged += MainWindowViewModel_PropertyChanged;
+            LogOffCommand = new DelegateCommand(LogOff);
             LoadProcesess();
         }
 
         public MainWorkspaceViewModel()
         {
-            _processRepository = new ProcessService();
-            _subTaskRepository = new SubTaskService();
-            this.PropertyChanged += MainWindowViewModel_PropertyChanged;
-            LoadProcesess();
         }
+
+        private void LogOff(object obj)
+        {
+            Application.Current.MainWindow.Content = new LoginViewModel();
+        }
+
+        public ICommand LogOffCommand { get; private set; }
+
+        private string _userName;
+
+        public string Username
+        {
+            get { return _userName; }
+            set 
+            {
+                if (_userName != value)
+                {
+                    _userName = value;
+                    OnPropertyChanged(nameof(Username));
+                } 
+            }
+        }
+
 
         public Process SelectedProcess
         {

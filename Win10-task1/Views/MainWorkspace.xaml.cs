@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using Win10_task1.ViewModels;
 
 namespace Win10_task1.Views
 {
@@ -7,6 +8,12 @@ namespace Win10_task1.Views
     /// </summary>
     public partial class MainWorkspace : UserControl
     {
+        public MainWorkspace()
+        {
+            InitializeComponent();
+            DataContext = new MainWorkspaceViewModel();
+        }
+
         public MainWorkspace(object viewModel)
         {
             InitializeComponent();

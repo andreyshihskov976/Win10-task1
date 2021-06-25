@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Win10_task1.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
     <Grid Background="#AEC2EB" VerticalAlignment="Stretch">
@@ -18,10 +18,20 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Border Background="#AEC2EB" Margin="3" Padding="10" CornerRadius="20" Grid.Row="0" Grid.Column="0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Border BorderThickness="2" BorderBrush="#AEC2EB" Margin="3" Padding="0" CornerRadius="20" Grid.Row="0" Grid.ColumnSpan="2">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock Text="{Binding Path=Username}" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold"/>
+                        <Button Margin="15,3" HorizontalAlignment="Right" Content="Выйти" Command="{Binding Path=LogOffCommand}"/>
+                    </StackPanel>
+                </Border>
+                <Border Background="#AEC2EB" Margin="3" Padding="10" CornerRadius="20" Grid.Row="1" Grid.Column="0" >
                 <StackPanel>
                     <TextBlock Text="Проекты" FontSize="12" FontWeight="Bold" Margin="0 0 0 20"/>
-                    <DataGrid x:Name="ProcessesGrid" ItemsSource="{Binding Path=ProcessCollection}" AutoGenerateColumns="False"
+                    <DataGrid x:Name="ProcessesGrid" Style="{StaticResource MaterialDesignDataGrid}" ItemsSource="{Binding Path=ProcessCollection}" AutoGenerateColumns="False"
                               SelectedItem="{Binding Path=SelectedProcess, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Цель" Width="0,45*" Binding="{Binding Path=Name}"/>
@@ -31,10 +41,10 @@
                     </DataGrid>
                 </StackPanel>
                 </Border>
-                <Border BorderThickness="2" BorderBrush="#AEC2EB" Margin="3" Padding="10" CornerRadius="20" Grid.Row="0" Grid.Column="1">
+                <Border BorderThickness="2" BorderBrush="#AEC2EB" Margin="3" Padding="10" CornerRadius="20" Grid.Row="1" Grid.Column="1">
                     <StackPanel>
                         <TextBlock Text="Этапы" FontSize="12" FontWeight="Bold" Margin="0 0 0 20"/>
-                        <DataGrid x:Name="SubTasksGrid" ItemsSource="{Binding Path=SubTaskCollection}" AutoGenerateColumns="False" >
+                        <DataGrid x:Name="SubTasksGrid" Style="{StaticResource MaterialDesignDataGrid}" ItemsSource="{Binding Path=SubTaskCollection}" AutoGenerateColumns="False" >
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Цель" Width="0,45*" Binding="{Binding Path=Name}"/>
                                 <DataGridTextColumn Header="Описание" Width="0,60*" Binding="{Binding Path=Description}"/>
